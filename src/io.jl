@@ -1,4 +1,4 @@
-using HDF5: ishdf5
+using HDF5
 
 """Parse IMS measurement"""
 function imsread(file_name::AbstractString)
@@ -16,8 +16,16 @@ end
 
 
 """HDF5 parser"""
-function imsread_hdf5(filename::AbstractString)
-    error("not implemented, yet")
+function imsread_hdf5(h5_fname::AbstractString)
+    h5open(h5_fname, "r") do file
+        if HDF5.exists(file, "/IMS/S")
+            info("IMS")
+            S = read(file, "/IMS/S")
+            return S
+        else
+            S = read(file, "S")
+            return S
+        end
+    end
 end
 
-    
