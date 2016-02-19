@@ -1,5 +1,7 @@
 module IMS
 
-# package code goes here
+export imssave, imsshow
+
+include("colormap.jl")
 
 end # module
