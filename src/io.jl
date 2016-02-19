@@ -11,7 +11,7 @@ end
 function imsread_csv(file_name::AbstractString)
     data = readcsv(file_name, Float64, skipstart=132, use_mmap=true)
     S = data[:,3:end]
-    return S
+    return S'
 end
 
 
