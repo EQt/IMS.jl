@@ -25,8 +25,8 @@ cm = ColorMap("ims", r, g, b)
 register_cmap("ims", cm)
 
 """Show a measurement matrix using an appropriate colormap"""
-imsshow(s::Matrix{Float64}) =
-    imshow(s; cmap="ims", vmin=0, vmax=100, interpolation="none", origin="lower")
+imsshow(s::Matrix{Float64}; vmin=0, vmax=100) =
+    imshow(s; cmap="ims", vmin=vmin, vmax=vmax, interpolation="none", origin="lower")
 
 """Like `imshow` but save an image using the `imsave` method of `PyPlot`"""
 imssave(s::Matrix{Float64}, f::AbstractString) =
