@@ -32,7 +32,7 @@ function sgdebug(fname::AbstractString, convert64=true)
         S = read(fid, "IMS/raw")'
         L = read(fid, "IMS/laplace")'
 
-        vars = @qvs k1h k1v k2h k2v S L
+        vars = @qvs k1h k1v k2h k2v S L t_low t_high
         if convert64
             vars = [(k, map(Float64, v)) for (k,v) in vars]
         end
