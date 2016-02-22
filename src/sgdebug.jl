@@ -2,11 +2,19 @@ using HDF5
 
 """Load debugging info from SGLTR"""
 function sgdebug(fname::AbstractString)
-    file = h5open(fname, "r")
+    fid = h5open(fname, "r")
     try
-        k1h = a_read(fname["IMS"], "kernel1_h")
-        k1v = a_read(fname["IMS"], "kernel1_v")
+        k1h = a_read(fid["IMS"], "kernel1_h")
+        k1v = a_read(fid["IMS"], "kernel1_v")
+        k2h = a_read(fid["IMS"], "kernel2_h")
+        k2v = a_read(fid["IMS"], "kernel2_v")
+        S = read(fid, "IMS/raw")'
+        L = read(fid, "IMS/laplace")'
+
+        T1 = conv2(k1v, k1h, S)
+        T2 = conv2(k2v, k2h, S)
+        T = T1 + T2
     finally
-        close(file)
+        close(fid)
     end
 end
