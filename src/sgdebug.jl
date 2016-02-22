@@ -1,5 +1,11 @@
 using HDF5
 
+"""Return a dictionary containing the variables `vars` together with their values"""
+macro vardict(vars...)
+    :(Dict([ (string(v), eval(v)) for v in $vars]))
+end
+
+
 """Load debugging info from SGLTR"""
 function sgdebug(fname::AbstractString)
     fid = h5open(fname, "r")
@@ -18,3 +24,4 @@ function sgdebug(fname::AbstractString)
         close(fid)
     end
 end
+
