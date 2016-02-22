@@ -19,7 +19,7 @@ end
 
 
 """Load debugging info from SGLTR"""
-function sgdebug(fname::AbstractString)
+function sgdebug(fname::AbstractString, convert64=true)
     fid = h5open(fname, "r")
     try
         k1h = a_read(fid["IMS"], "kernel1_h")
@@ -29,7 +29,11 @@ function sgdebug(fname::AbstractString)
         S = read(fid, "IMS/raw")'
         L = read(fid, "IMS/laplace")'
 
-        Dict(@qvs k1h k1v k2h k2v S L)
+        vars = @qvs k1h k1v k2h k2v S L
+        if convert64
+            vars = [(k, map(Float64, v)) for (k,v) in vars]
+        end
+        Dict(vars)
     catch
         rethrow()
     finally
