@@ -17,14 +17,22 @@ function sgdebug(fname::AbstractString)
         S = read(fid, "IMS/raw")'
         L = read(fid, "IMS/laplace")'
 
-        T1 = conv2(k1v, k1h, S)
-        T2 = conv2(k2v, k2h, S)
-        T = T1 + T2
+        # T1 = conv2(k1v, k1h, S)
+        # T2 = conv2(k2v, k2h, S)
+        # T = T1 + T2
 
         @vardict k1h k1v k2h k2v S L
     finally
         close(fid)
     end
+end
+
+
+"""Generate SGLTR debug file"""
+function sgltr_debug(fname::AbstractString)
+    dname = fname * ".debug"
+    peaks = readall(pipeline(`sgltr $fname -d $dname`, stderr=DevNull))
+    readdlm(IOBuffer(peaks), '\t'; header=true)
 end
 
 
