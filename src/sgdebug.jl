@@ -1,8 +1,20 @@
 using HDF5
 
 """Return a dictionary containing the variables `vars` together with their values"""
-macro vardict(vars...)
-    :(Dict([ (string(v), eval(v)) for v in $vars]))
+macro qv(v)
+    s = string(v)
+    :(($s, $v))
+end
+
+
+macro qvs(vs...)
+    v = (vs...)[1]
+    if length(vs) == 1
+        s = string(v)
+        :(@qv $v)
+    else
+        :([@qv($v); @qvs($((vs...)[2:end]...))])
+    end
 end
 
 
@@ -17,11 +29,9 @@ function sgdebug(fname::AbstractString)
         S = read(fid, "IMS/raw")'
         L = read(fid, "IMS/laplace")'
 
-        # T1 = conv2(k1v, k1h, S)
-        # T2 = conv2(k2v, k2h, S)
-        # T = T1 + T2
-
-        @vardict k1h k1v k2h k2v S L
+        Dict(@qvs k1h k1v k2h k2v S L)
+    catch
+        rethrow()
     finally
         close(fid)
     end
