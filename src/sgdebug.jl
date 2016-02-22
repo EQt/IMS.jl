@@ -51,4 +51,4 @@ end
 
 
 """Clip to interesting part of the measurement"""
-interesing(S) = S[1:400, 760:1250]
+interesting(S) = S[1:400, 760:1250]
