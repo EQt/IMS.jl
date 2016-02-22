@@ -20,6 +20,8 @@ function sgdebug(fname::AbstractString)
         T1 = conv2(k1v, k1h, S)
         T2 = conv2(k2v, k2h, S)
         T = T1 + T2
+
+        @vardict k1h k1v k2h k2v S L
     finally
         close(fid)
     end
