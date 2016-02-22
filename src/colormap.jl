@@ -29,5 +29,5 @@ imsshow{T <: Number}(s::Matrix{T}; vmin=0, vmax=100) =
     imshow(s; cmap="ims", vmin=vmin, vmax=vmax, interpolation="none", origin="lower")
 
 """Like `imshow` but save an image using the `imsave` method of `PyPlot`"""
-imssave{T <: Number}(s::Matrix{T}, f::AbstractString) =
-    imsave(f, s; cmap="ims", vmin=0, vmax=100, origin="lower")
+imssave{T <: Number}(s::Matrix{T}, f::AbstractString; vmin=0, vmax=100) =
+    imsave(f, s; cmap="ims", vmin=vmin, vmax=vmax, origin="lower")
