@@ -26,6 +26,9 @@ function sgdebug(fname::AbstractString, convert64=true)
         k1v = a_read(fid["IMS"], "kernel1_v")
         k2h = a_read(fid["IMS"], "kernel2_h")
         k2v = a_read(fid["IMS"], "kernel2_v")
+        k2v = a_read(fid["IMS"], "kernel2_v")
+        t_low = a_read(fid["IMS"], "threshold_low")
+        t_high = a_read(fid["IMS"], "threshold_high")
         S = read(fid, "IMS/raw")'
         L = read(fid, "IMS/laplace")'
 
