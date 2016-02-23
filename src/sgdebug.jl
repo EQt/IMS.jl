@@ -31,8 +31,9 @@ function sgdebug(fname::AbstractString, convert64=true)
         t_high = a_read(fid["IMS"], "threshold_high")
         S = read(fid, "IMS/raw")'
         L = read(fid, "IMS/laplace")'
+        B = read(fid, "IMS/rm_base")'
 
-        vars = @qvs k1h k1v k2h k2v S L t_low t_high
+        vars = @qvs k1h k1v k2h k2v S L B t_low t_high
         if convert64
             vars = [(k, map(Float64, v)) for (k,v) in vars]
         end
