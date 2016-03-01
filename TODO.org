@@ -3,3 +3,5 @@
 *** TODO Spotlight tracking (like in Bunkowski:2012, p. 63)
 *** TODO Polar glyph visualisation (Bunkowski:2012, p. 66)
 *** TODO Boxplots of intensities
+*** TODO Store the measurements on a server?
+    https://hdfgroup.org/wp/2015/04/hdf5-for-the-web-hdf-server/
