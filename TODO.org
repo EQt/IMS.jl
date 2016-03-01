@@ -1,0 +1,5 @@
+* IDEAS FOR THE FUTURE
+** Time series
+*** TODO Spotlight tracking (like in Bunkowski:2012, p. 63)
+*** TODO Polar glyph visualisation (Bunkowski:2012, p. 66)
+*** TODO Boxplots of intensities
