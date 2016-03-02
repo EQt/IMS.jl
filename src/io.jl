@@ -20,21 +20,15 @@ function imsread_csv(file_name::AbstractString)
     R = float(tR[3:end])
     @asserteq size(S,1) length(R)
 
-    return S
+    return Dict(@qvs S D T R)
 end
 
 
 """HDF5 parser"""
 function imsread_hdf5(h5_fname::AbstractString)
     h5open(h5_fname, "r") do file
-        if HDF5.exists(file, "/IMS/S")
-            info("IMS")
-            S = read(file, "/IMS/S")
-            return S
-        else
-            S = read(file, "S")
-            return S
-        end
+        HDF5.exists(file, "IMS") || file = g_open(file, "IMS")
+        return [k => read(file, k) for k in names(file)]
     end
 end
 
