@@ -1,6 +1,10 @@
-* IDEAS FOR THE FUTURE
+* WHAT TO DO NEXT?
+** TODO Read other parameters
+
 ** Time series
 *** TODO Spotlight tracking (like in Bunkowski:2012, p. 63)
+    Plot them like http://matplotlib.org/users/plotting/examples/demo_gridspec06.py
+
 *** TODO Polar glyph visualisation (Bunkowski:2012, p. 66)
 *** TODO Boxplots of intensities
 *** TODO Store the measurements on a server?
