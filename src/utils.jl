@@ -42,3 +42,17 @@ function readline(filename::AbstractString, line::Int)
         error("`$filename` only has $(i-1) lines")
     end
 end
+
+
+"""Return value of `vals` which is closest to `x`"""
+function closest(vals, x)
+    _, index = findmin([abs(v - x) for v in vals])
+    return vals[index]
+end
+
+
+"""Fits a linear line through the values in `enumerate(ys)` and returns the maximum absolute deviation"""
+function lindev{T<:Number}(ys::Vector{T})
+    a, b = linreg(collect(1.0:length(ys)), ys)
+    return maxabs([y - (a + b*i) for (i, y) in enumerate(ys)])
+end
