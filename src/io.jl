@@ -10,8 +10,17 @@ end
 """CSV parser"""
 function imsread_csv(file_name::AbstractString)
     data = readcsv(file_name, Float64, skipstart=132, use_mmap=true)
-    S = data[:,3:end]
-    return S'
+    S = data[:,3:end]'
+    D = data[:,2]
+    T = data[:,1]
+
+    tR = split(readline(file_name, 131), ",")
+    @assert startswith(tR[1], "\\")
+    @asserteq strip(tR[2]) "tR"
+    R = float(tR[3:end])
+    @asserteq size(S,1) length(R)
+
+    return S
 end
 
 
