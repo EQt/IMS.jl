@@ -2,7 +2,7 @@ import Base.readline
 
 macro asserteq(a,b)
     msg = "$a != $b"
-    :($a == $b || throw(AssertionError("$($msg): $a, $b")))
+    :($a == $b || throw(AssertionError("$($msg): $($a), $($b)")))
 end
 
 function readline(filename::AbstractString, line::Int)
