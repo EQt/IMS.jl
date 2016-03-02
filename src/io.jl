@@ -27,8 +27,9 @@ end
 """HDF5 parser"""
 function imsread_hdf5(h5_fname::AbstractString)
     h5open(h5_fname, "r") do file
-        HDF5.exists(file, "IMS") || file = g_open(file, "IMS")
+        if HDF5.exists(file, "IMS")
+            file = g_open(file, "IMS")
+        end
         return [k => read(file, k) for k in names(file)]
     end
 end
-
