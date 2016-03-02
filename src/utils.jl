@@ -44,12 +44,12 @@ function readline(filename::AbstractString, line::Int)
 end
 
 
-"""Return value of `vals` which is closest to `x`"""
-function closest(vals, x)
+"""Return index of `vals` which is closest to `x`"""
+function closest_index(vals, x)
     _, index = findmin([abs(v - x) for v in vals])
-    return vals[index]
+    return index
 end
-
+closest(vals, x) = vals[closest_index(vals, x)]
 
 """Fits a linear line through the values in `enumerate(ys)` and returns the maximum absolute deviation"""
 lindev{T<:Number}(ys::Vector{T}) = maxabs(lindev_vec(ys))
@@ -58,5 +58,22 @@ lindev{T<:Number}(ys::Vector{T}) = maxabs(lindev_vec(ys))
 function lindev_vec{T<:Number}(ys::Vector{T})
     a, b = linreg(collect(1.0:length(ys)), ys)
     return [y - (a + b*i) for (i, y) in enumerate(ys)]
+end
+
+
+"""Resample measurement S at retention times R such that the new matrix has size n*size(S,2)"""
+function resample(S, R, n::Int)
+    @assert issorted(R)
+    M = zeros(n, size(S, 2))
+    Rmin, Rmax = R[1], R[size(S, 1)]
+    for (i, t) = enumerate(linspace(Rmin, Rmax, n))
+        i0 = findlast(R .<= t)
+        i1 = findfirst(R .>= t)
+        a = R[i1] - R[i0] <= 1e-10 ? 1.0 : (t - R[i1]) / (R[i0] - R[i1])
+        for j = 1:size(S, 2)
+            M[i,j] = a*S[i0, j] + (1 - a)*S[i1, j]
+        end
+    end
+    return M
 end
 
