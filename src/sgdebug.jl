@@ -1,22 +1,5 @@
 using HDF5
 
-"""Return a dictionary containing the variables `vars` together with their values"""
-macro qv(v)
-    s = string(v)
-    :(($s, $v))
-end
-
-
-macro qvs(vs...)
-    v = (vs...)[1]
-    if length(vs) == 1
-        s = string(v)
-        :(@qv $v)
-    else
-        :([@qv($v); @qvs($((vs...)[2:end]...))])
-    end
-end
-
 
 """Load debugging info from SGLTR"""
 function sgdebug(fname::AbstractString, convert64=true)
