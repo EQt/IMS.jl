@@ -77,3 +77,5 @@ function resample(S, R, n::Int)
     return M
 end
 
+"""Uniform resampling"""
+resample(S, n::Int) = resample(S, collect(1:n), n)
