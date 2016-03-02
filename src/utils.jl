@@ -52,7 +52,11 @@ end
 
 
 """Fits a linear line through the values in `enumerate(ys)` and returns the maximum absolute deviation"""
-function lindev{T<:Number}(ys::Vector{T})
+lindev{T<:Number}(ys::Vector{T}) = maxabs(lindev_vec(ys))
+
+"""Return deviation vector from a linear fitted line"""
+function lindev_vec{T<:Number}(ys::Vector{T})
     a, b = linreg(collect(1.0:length(ys)), ys)
-    return maxabs([y - (a + b*i) for (i, y) in enumerate(ys)])
+    return [y - (a + b*i) for (i, y) in enumerate(ys)]
 end
+
