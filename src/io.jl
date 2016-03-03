@@ -1,7 +1,7 @@
 using HDF5
 
 """Read an IMS measurement file (in all available formats)"""
-function imsread(file_name::AbstractString; normalize=true)
+function imsread(file_name::AbstractString; normalize=true, asfloat=true)
     isfile(file_name) || error(@sprintf("`%s` is not a readable file", file_name))
     ims = ishdf5(file_name) ? imsread_hdf5(file_name) : imsread_csv(file_name)
     if normalize
@@ -11,6 +11,9 @@ function imsread(file_name::AbstractString; normalize=true)
         if mean(ims["S"]) < 0
             ims["S"] = -ims["S"]
         end
+    end
+    if asfloat
+        ims["S"] = map(Float64, ims["S"])
     end
     return ims
 end
