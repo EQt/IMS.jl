@@ -1,10 +1,18 @@
 using HDF5
 
-"""Parse IMS measurement"""
-function imsread(file_name::AbstractString)
+"""Read an IMS measurement file (in all available formats)"""
+function imsread(file_name::AbstractString; normalize=true)
     isfile(file_name) || error(@sprintf("`%s` is not a readable file", file_name))
-    ishdf5(file_name) && return imsread_hdf5(file_name)
-    return imsread_csv(file_name)
+    ims = ishdf5(file_name) ? imsread_hdf5(file_name) : imsread_csv(file_name)
+    if normalize
+        if length(ims["R"]) != size(ims["S"], 1)
+            ims["S"] = ims["S"]'
+        end
+        if mean(ims["S"]) < 0
+            ims["S"] = -ims["S"]
+        end
+    end
+    return ims
 end
 
 """CSV parser"""
