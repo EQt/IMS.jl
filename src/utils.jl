@@ -79,3 +79,9 @@ end
 
 """Uniform resampling"""
 resample(S, n::Int) = resample(S, collect(1:n), n)
+
+
+"""Compute the forward difference of a vector"""
+function forward_diff{T}(x::Vector{T})
+    return [x[i] - x[i-1] for i = 2:length(x)]
+end
