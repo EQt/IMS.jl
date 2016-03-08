@@ -85,3 +85,7 @@ resample(S, n::Int) = resample(S, collect(1:n), n)
 function forward_diff{T}(x::Vector{T})
     return [x[i] - x[i-1] for i = 2:length(x)]
 end
+
+
+"""Plot a histogramm of an array"""
+ploth(x; bins=300) = PyPlot.gca()[:hist](x[:], bins=bins)
