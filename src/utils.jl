@@ -62,7 +62,7 @@ end
 
 
 """Resample measurement S at retention times R such that the new matrix has size n*size(S,2)"""
-function resample(S, R, n::Int)
+function resample(S::Matrix, R, n::Int)
     @assert issorted(R)
     M = zeros(n, size(S, 2))
     Rmin, Rmax = R[1], R[size(S, 1)]
