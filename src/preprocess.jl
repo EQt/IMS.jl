@@ -15,8 +15,8 @@ function align_max{T <: Number}(S::Matrix{T})
     return A
 end
 
-function remove_b(ims, nlast=200)
-    baseline = mean(ims[end-nlast:end, :], 1)
+function remove_b(S::Matrix, nlast=200)
+    baseline = mean(S[end-nlast:end, :], 1)
     _, rip_index = findmax(baseline)
     B = S .- baseline
 end
