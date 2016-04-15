@@ -80,6 +80,9 @@ end
 """Uniform resampling"""
 resample(S, n::Int) = resample(S, collect(1:n), n)
 
+"""Resampling according to a function"""
+resample(S::Matrix, f::Function, n::Integer) = resample(S, [f(i) for i=1:n], n)
+
 
 """Compute the forward difference of a vector"""
 function forward_diff{T}(x::Vector{T})
