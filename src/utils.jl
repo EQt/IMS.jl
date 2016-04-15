@@ -85,6 +85,28 @@ resample(S::Matrix, f::Function, n::Integer) = resample(S, [f(i) for i=1:n], n)
 export resample
 
 
+"""Resample by given old and new R values"""
+function resample(S::Matrix, oldR::Vector, newR::Vector)
+    @assert issorted(oldR)
+    @assert issorted(newR)
+    @assert oldR[1] <= newR[1]
+    @assert newR[end] <= oldR[end]
+    @assert size(S, 1) == length(oldR)
+    M = zeros(length(newR), size(S, 2))
+    for (i, t) = enumerate(newR)
+        println("i=$i, t=$t")
+        i0 = max(findlast(oldR .<= t), 1)
+        i1 = min(findfirst(oldR .>= t), length(oldR))
+        a = oldR[i1] - oldR[i0] <= 1e-10 ? 1.0 : (t - oldR[i1]) / (oldR[i0] - oldR[i1])
+        for j = 1:size(S, 2)
+            M[i,j] = a*S[i0, j] + (1 - a)*S[i1, j]
+        end
+    end
+    return M
+end
+resample(S::Matrix, oldR::Vector, f::Function, n::Integer) = resample(S, oldR, [f(i) for i = 1:n])
+
+
 """Compute the forward difference of a vector"""
 function forward_diff{T}(x::Vector{T})
     return [x[i] - x[i-1] for i = 2:length(x)]
