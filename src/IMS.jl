@@ -1,3 +1,5 @@
+__precompile__()
+
 module IMS
 
 export imssave, imsshow, imsread
