@@ -19,7 +19,7 @@ end
 
 """Read a peak list and return a DataFrame"""
 function read_peaks(path::AbstractString)
-    readtable("peaks01.csv", separator='\t')
+    readtable(path, separator='\t')
 end
 
 export read_peaks, write_peaks
