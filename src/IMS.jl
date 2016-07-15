@@ -2,7 +2,7 @@ __precompile__()
 
 module IMS
 
-export imssave, imsshow, imsread
+export imssave, imsread
 
 if isdefined(:PyPlot)
     include("colormap.jl")
