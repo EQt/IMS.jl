@@ -27,9 +27,6 @@ function register_ims_cmap()
     register_cmap("ims", cm)
 end
 
-__init__() = register_ims_cmap()
-
-
 """Show a measurement matrix using an appropriate colormap"""
 imsshow{T <: Number}(s::Matrix{T}; vmin=0, vmax=100) =
     imshow(s; cmap="ims", vmin=vmin, vmax=vmax, interpolation="none", origin="lower")
