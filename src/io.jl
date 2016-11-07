@@ -41,6 +41,6 @@ function imsread_hdf5(h5_fname::AbstractString)
         if HDF5.exists(file, "IMS")
             file = g_open(file, "IMS")
         end
-        return [k => read(file, k) for k in names(file)]
+        return Dict(k => read(file, k) for k in names(file))
     end
 end
