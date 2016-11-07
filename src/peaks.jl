@@ -4,7 +4,7 @@ using DataFrames
 function write_peaks(path::Union{AbstractString,IO}, df::DataFrame)
     d = copy(df)
     if !(:name in names(d))
-        d[:name] = [symbol(@sprintf("P%d", i)) for i=1:size(d, 1)]
+        d[:name] = [Symbol(@sprintf("P%d", i)) for i=1:size(d, 1)]
         d = d[circshift(names(d), 1)]
     end
     # d[:t] .*= 100
