@@ -4,16 +4,14 @@ module IMS
 
 export imssave, imsread
 
-function __init__()
-    if isdefined(:PyPlot)
-        info("Loading ims plot functions ...")
-        include(Pkg.dir("IMS", "src", "colormap.jl"))
-        register_ims_cmap()
-    else
-        info("No plotting supported")
-    end
-end
-
+# module Plot
+# using PyPlot
+# function __init__()
+#     info("Loading ims plot functions ...")
+#     include(Pkg.dir("IMS", "src", "colormap.jl"))
+#     register_ims_cmap()
+# end
+# end
 
 include("utils.jl")
 include("io.jl")
