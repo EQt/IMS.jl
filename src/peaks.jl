@@ -1,7 +1,7 @@
 using DataFrames
 
 """Print in the format we used in the project group"""
-function write_peaks(path::Union{AbstractString,IO}, df::DataFrame)
+function write_peaks(path::Union{AbstractString,IO}, df::DataFrames.DataFrame)
     d = copy(df)
     if !(:name in names(d))
         d[:name] = [Symbol(@sprintf("P%d", i)) for i=1:size(d, 1)]
